@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>YSY A Random Song</title>
+</head>
+<body class="m-5">
+    <div>
+        <Button id="random" class="my-3 p-2 bg-primary text-light rounded-3 border-0">Random Song</Button>
+        <div>
+            <p class="fw-bold">Título</p>
+            <p id="sTitle">...</p>
+        </div>
+        <hr>
+        <div>
+            <p class="fw-bold">Álbum o Sencillo</p>
+            <p id="sAlbum">...</p>
+        </div>
+        <hr>
+        <div>
+            <p class="fw-bold">Spotify Link</p>
+            <a href="" id="sLink"></a>
+        </div>
+        <img src="" alt="" id="sImg" width="250px" class="my-5">
+    </div>
+
+
+
+    <script>
+
+        const title = document.getElementById('sTitle');
+        const album = document.getElementById('sAlbum');
+        const link = document.getElementById('sLink');
+        const image = document.getElementById('sImg');
+
+        document.getElementById('random').addEventListener('click', (e)=>{
+            e.preventDefault();
+
+            fetch('/randomSong').then((res)=>{
+                res.json().then(json=>{
+                    title.innerHTML = json.name;
+                    album.innerHTML = json.album;
+                    link.setAttribute('href', json.link);
+                    link.innerHTML = json.link;
+                    image.setAttribute('src', json.image);
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>

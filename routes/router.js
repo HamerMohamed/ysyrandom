@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const spotifyApi = require('../controllers/spotify-api');
+const ysy = '2qWK8K2Jfh67UqtwY8tCW6';
 
 router.get('/', (req, res)=>{
     console.log('New user');
@@ -43,9 +44,9 @@ router.get('/randomAlbum', (req, res)=>{
     });
 });
 
-router.get('/randomSong', (req, res)=>{
-    spotifyApi.getAlbums((response)=>{
-        if(response)
+router.get('/randomSong/:artist', (req, res)=>{
+    spotifyApi.getAlbums(req.params.artist, (err, response)=>{
+        if(response && err == null)
         {
             let _album = response.items[Math.floor(Math.random() * response.items.length)]
 

@@ -36,12 +36,14 @@ const getName = function(callback){
     });
 }
 
-const getAlbums = function(callback){
-    spotifyApi.getArtistAlbums('2qWK8K2Jfh67UqtwY8tCW6').then((res)=>{
+const getAlbums = function(artistID,callback){
+    spotifyApi.getArtistAlbums(artistID).then((res)=>{
         if(res)
         {
-            callback(res.body);
+            callback(null, res.body);
         }
+    }, (err) => {
+        callback(err, null);
     });
 }
 
